@@ -28,6 +28,13 @@ spec:
         - name: frontend
           image: hemanthkumar75/frontend:v2
           imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
 ---
 kind: Service
 apiVersion: v1
