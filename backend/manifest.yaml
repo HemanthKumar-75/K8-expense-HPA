@@ -19,7 +19,7 @@ metadata:
     created_by: HemanthKumar
     module: backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       project: expense

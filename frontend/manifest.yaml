@@ -9,7 +9,7 @@ metadata:
     created_by: HemanthKumar
     module: frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       project: expense
@@ -53,3 +53,24 @@ spec:
     protocol: TCP
     port: 8080            # The port on which the service will be exposed to the external network.
     targetPort: 8080        # The target port on the pods that this service will route traffic to.
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: frontend
+  namespace: expense
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend
+  minReplicas: 1
+  maxReplicas: 10
+  # targetCPUUtilizationPercentage: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 10
